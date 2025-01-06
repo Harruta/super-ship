@@ -25,18 +25,17 @@ const Stack = () => {
     <div className='bg-black'>
         <div className='container mx-auto px-3 md:px-10'>
             <div className='text-center font-bold px-5 py-32'>
-                <p className=' font-general text-lg text-blue-50'>
+                <p className=' font-general text xl text-blue-50'>
                     Our Stacks
                 </p>
                 <h3 className='text-center font-light text-white'>Industry standered technologises at your fingertips</h3>
             </div>
-            <div className='border-2 border-white relative  h-80 w-5/6
+            <div className='border-2 border-white relative  h-80 w-full
             overflow-hidden rounded-md md:h[65vh]'>
                 <BentoCard
                 src={mernImage}
-                description={""}
+                description={"Build scalable web applications with MongoDB, Express, React, and Node.js"}
                 />
-                <BentoCard/>
 
             </div>
         </div>
