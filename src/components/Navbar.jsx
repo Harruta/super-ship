@@ -3,7 +3,7 @@ import rocketImage from '../assets/rocket.jpg';
 
 
 const Navbar = () => {
-  const navItems = ['Pricing', 'Leaderboards'];
+  const navItems = ['Pricing','Stack', 'Leaderboards', 'Docs'];
 
   return (
     <nav className="flex items space-x-9 bg-black p-4">
@@ -11,7 +11,7 @@ const Navbar = () => {
             <img
             src={rocketImage}
             alt ="logo"
-            className='w-8 h-8'
+            className='w-8 h-8 '
             />
             <span className='text xl font-bold text-white'>SuperShip</span>
         </div>
