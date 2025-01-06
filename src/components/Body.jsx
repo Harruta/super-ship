@@ -3,7 +3,7 @@ import Button from './Button';
 
 const Body = () => {
   const handleButtonClick = () => {
-    window.open('https://example.com', '_blank'); // todo add link to razorpay
+    window.location.href = 'https://ligma.com';// todo add link to razorpay
   };
 
   return (
