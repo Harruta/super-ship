@@ -1,7 +1,7 @@
 import Razorpay from "razorpay";
-import dotenv from ".env.local";
+import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: ".env.local" });
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, 
@@ -14,10 +14,9 @@ app.post("/api/payment/order", async (req, res) => {
         const { amount } = req.body; // Amount in dollars
 
         const options = {
-            amount: Math.round(amount * 100), // Convert dollars to cents
+            amount: Math.round(amount * 100), 
             currency: "USD", // Set the currency to USD
         };
-
         const order = await razorpay.orders.create(options);
 
         res.status(200).json({
