@@ -16,7 +16,6 @@ function App() {
         {/* Add the Routes inside App */}
         <Routes>
           {/* Add other routes */}
-          <Route path="/" element={<Body />} />
           <Route path="/payment" element={<PaymentPage />} /> {/* Payment route here */}
         </Routes>
       </div>
