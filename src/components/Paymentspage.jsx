@@ -1,35 +1,35 @@
 import React, { useState } from "react";
 
-// Payment page component
 const PaymentPage = () => {
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async () => {
     setLoading(true);
 
-    // Call your backend to create the order (make sure this is a POST request to your backend)
-    const response = await fetch("/api/payment/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount: 50 }), // Amount in USD, for example $50
-    });
+    try {
+      const response = await fetch("/api/payment/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: 50 }), // Amount in USD
+      });
 
-    const { orderId, amount, currency } = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to create order");
+      }
 
-    if (orderId) {
-      // Initialize Razorpay with the order information
+      const { orderId, amount, currency } = await response.json();
+
       const options = {
         key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay Key ID
-        amount: amount, // Amount in cents (50 USD = 5000 cents)
-        currency: currency, // Currency (USD in this case)
+        amount: amount,
+        currency: currency,
         name: "Your Company Name",
         description: "Payment for Order",
-        order_id: orderId, // Order ID returned from backend
+        order_id: orderId,
         handler: function (response) {
           alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
-          // Optionally, you can send this payment ID to the backend for verification
         },
         prefill: {
           name: "Customer Name",
@@ -37,31 +37,30 @@ const PaymentPage = () => {
           contact: "1234567890",
         },
         theme: {
-          color: "#4CAF50", // Green color for the Razorpay button
+          color: "#ffffff", // Button color in Razorpay UI
         },
       };
 
       const razorpay = new Razorpay(options);
-      razorpay.open(); // Open Razorpay UI for payment
-
-      // Reset loading state
+      razorpay.open();
       setLoading(false);
-    } else {
+    } catch (error) {
+      console.error("Payment failed:", error);
       setLoading(false);
-      alert("Failed to create order. Please try again.");
+      alert("Payment initiation failed. Please try again.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full sm:w-96">
-        <h1 className="text-2xl font-bold text-center mb-4">Payment Page</h1>
-        <p className="text-center text-lg mb-6">
-          Pay for your order of <span className="font-semibold">$50 USD</span>.
+    <div className="min-h-screen bg-black flex justify-center items-center">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full sm:w-96">
+        <h1 className="text-2xl font-bold text-center mb-4 text-white">Payment Page</h1>
+        <p className="text-center text-lg mb-6 text-gray-300">
+          Pay for your order of <span className="font-semibold text-white">$50 USD</span>.
         </p>
         <button
           onClick={handlePayment}
-          className={`w-full py-3 text-white rounded-lg ${loading ? "bg-gray-400" : "bg-green-500 hover:bg-green-600"} transition-all`}
+          className={`w-full py-3 rounded-lg text-black ${loading ? "bg-gray-400" : "bg-white hover:bg-gray-200"} transition-all`}
           disabled={loading}
         >
           {loading ? "Processing..." : "Pay Now"}

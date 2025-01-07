@@ -6,17 +6,13 @@ import PaymentPage from "./components/Paymentspage";
 
 function App() {
   return (
-    <Router>  {/* Wrap the entire layout with Router */}
+    <Router> 
       <div>
-        {/* Static components */}
         <Navbar />
         <Body />
         <Stack />
-
-        {/* Add the Routes inside App */}
         <Routes>
-          {/* Add other routes */}
-          <Route path="/payment" element={<PaymentPage />} /> {/* Payment route here */}
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </div>
     </Router>
