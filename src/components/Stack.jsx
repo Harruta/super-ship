@@ -3,6 +3,9 @@ import mernImage from '../assets/mern.png';
 import nextImage from '../assets/next.png';
 import reactImage from '../assets/react.png';
 import tailwindImage from '../assets/tailwind.png';
+import goImgage from '../assets/go.png';
+import rustImage from '../assets/rust.png';
+import typescriptImage  from '../assets/typescript.png';
 
 const BentoCard = ({ src, zoomOut }) => {
     return (
@@ -38,17 +41,25 @@ const Stack = () => {
                         <BentoCard src={mernImage} zoomOut={true} />
                     </div>
 
-                    {/* Two Smaller Rectangles */}
+                    {/* Thres Smaller Rectangles */}
                     <div className='h-40'>
                         <BentoCard src={nextImage} zoomOut={true} />
                     </div>
                     <div className='h-40'>
                         <BentoCard src={reactImage} zoomOut={true} />
                     </div>
-
-                    {/* Additional Cards */}
                     <div className='h-40'>
                         <BentoCard src={tailwindImage} zoomOut={true} />
+                    </div>
+
+                    <div className='h-40'>
+                        <BentoCard src={rustImage} zoomOut={true} />
+                    </div>
+                    <div className='h-40'>
+                        <BentoCard src={typescriptImage} zoomOut={true} />
+                    </div>
+                    <div className='h-40'>
+                        <BentoCard src={goImgage} zoomOut={true} />
                     </div>
                 </div>
             </div>
