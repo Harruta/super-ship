@@ -77,6 +77,25 @@ const PaymentPage = () => {
       alert("Payment initiation failed. Please try again.");
     }
   };
+  const sendWelcomeEmail = async (email) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/sendWelcomeEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }), // Send the user's email to backend
+      });
+  
+      if (response.ok) {
+        console.log("Welcome email sent successfully");
+      } else {
+        console.error("Failed to send welcome email");
+      }
+    } catch (error) {
+      console.error("Error sending welcome email:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black flex justify-center items-center">
