@@ -3,11 +3,31 @@ import React, { useState } from "react";
 const PaymentPage = () => {
   const [loading, setLoading] = useState(false);
 
+  // Function to dynamically load the Razorpay script
+  const loadRazorpayScript = () =>
+    new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => reject(false);
+      document.body.appendChild(script);
+    });
+
   const handlePayment = async () => {
     setLoading(true);
 
+    // Load Razorpay script dynamically
+    const scriptLoaded = await loadRazorpayScript().catch(() => false);
+
+    if (!scriptLoaded) {
+      alert("Failed to load Razorpay script. Please try again.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch("/api/payment/order", {
+      // Call your backend to create the Razorpay order
+      const response = await fetch("http://localhost:3000/api/payment/order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,8 +41,9 @@ const PaymentPage = () => {
 
       const { orderId, amount, currency } = await response.json();
 
+      // Razorpay payment options
       const options = {
-        key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay Key ID
+        key:"rzp_test_6JimtPYphPfTHC", 
         amount: amount,
         currency: currency,
         name: "Your Company Name",
@@ -37,12 +58,18 @@ const PaymentPage = () => {
           contact: "1234567890",
         },
         theme: {
-          color: "#ffffff", // Button color in Razorpay UI
+          color: "#ffffff", // White color for the theme
         },
       };
 
-      const razorpay = new Razorpay(options);
-      razorpay.open();
+      // Check if Razorpay is available
+      if (window.Razorpay) {
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+      } else {
+        alert("Razorpay is not available. Please refresh the page and try again.");
+      }
+
       setLoading(false);
     } catch (error) {
       console.error("Payment failed:", error);
@@ -60,7 +87,9 @@ const PaymentPage = () => {
         </p>
         <button
           onClick={handlePayment}
-          className={`w-full py-3 rounded-lg text-black ${loading ? "bg-gray-400" : "bg-white hover:bg-gray-200"} transition-all`}
+          className={`w-full py-3 rounded-lg text-black ${
+            loading ? "bg-gray-400" : "bg-white hover:bg-gray-200"
+          } transition-all`}
           disabled={loading}
         >
           {loading ? "Processing..." : "Pay Now"}

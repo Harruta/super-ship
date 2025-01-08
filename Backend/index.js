@@ -1,17 +1,14 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
-
-dotenv.config();
+import paymentRoutes from "./Routes/payment.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(
-    cors({
-        origin: "http://127.0.0.1:5173",
-    })
-);
+app.use(cors({ origin: "http://127.0.0.1:5173" })); // Allow frontend origin
+app.use(express.json()); // Parse JSON request bodies
 
-app.listen(3000, () => console.log('Backend running on port 3000'));
+// Use payment routes
+app.use("/api/payment", paymentRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
