@@ -1,46 +1,59 @@
-import React from 'react'
-import mernImage from '../assets/mern.webp';
+import React from 'react';
+import mernImage from '../assets/mern.png';
+import nextImage from '../assets/next.png';
+import reactImage from '../assets/react.png';
+import tailwindImage from '../assets/tailwind.png';
 
-const BentoCard = ({src, title, description, iscommingSoon}) => {
+const BentoCard = ({ src, zoomOut }) => {
     return (
-        <div className='relative size-full'>
+        <div className='relative h-full rounded-lg overflow-hidden border border-white'>
             <img
-            src={src}
-            className='absolute left-0 top-0 size-full object-cover'
+                src={src}
+                className={`absolute left-0 top-0 w-full h-full object-cover ${
+                    zoomOut ? 'scale-110' : ''
+                }`}
+                alt=""
             />
-            <div className='relative z-10 flex size-full flex-col 
-            justify-between p-5 text-blue-50'>
-                <h1 className='bento-title'>{title}</h1>
-                {description &&(
-                    <p className='mt-3 max-w-64 text-xs
-                    md:text-base'>{description}</p>
-                )}
-            </div>
-            {title}
         </div>
-    )
-}
+    );
+};
+
 const Stack = () => {
-  return (
-    <div className='bg-black'>
-        <div className='container mx-auto px-3 md:px-10'>
-            <div className='text-center font-bold px-5 py-32'>
-                <p className=' font-general text xl text-blue-50'>
-                    Our Stacks
-                </p>
-                <h3 className='text-center font-light text-white'>Industry standered technologises at your fingertips</h3>
-            </div>
-            <div className='border-2 border-white relative  h-80 w-full
-            overflow-hidden rounded-md md:h[65vh]'>
-                <BentoCard
-                src={mernImage}
-                description={"Build scalable web applications with MongoDB, Express, React, and Node.js"}
-                />
+    return (
+        <div className='bg-black py-20'>
+            <div className='container mx-auto px-3 md:px-10'>
+                <div className='text-center font-bold px-5 pb-10'>
+                    <p className='font-general text-xl text-blue-50'>
+                        Our Stacks
+                    </p>
+                    <h3 className='text-center font-light text-white'>
+                        Industry-standard technologies at your fingertips
+                    </h3>
+                </div>
 
+                {/* Grid Layout */}
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+                    {/* MERN Stack (Large Rectangle) */}
+                    <div className='md:col-span-2 lg:col-span-3 h-80'>
+                        <BentoCard src={mernImage} zoomOut={true} />
+                    </div>
+
+                    {/* Two Smaller Rectangles */}
+                    <div className='h-40'>
+                        <BentoCard src={nextImage} zoomOut={true} />
+                    </div>
+                    <div className='h-40'>
+                        <BentoCard src={reactImage} zoomOut={true} />
+                    </div>
+
+                    {/* Additional Cards */}
+                    <div className='h-40'>
+                        <BentoCard src={tailwindImage} zoomOut={true} />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default Stack
+export default Stack;
