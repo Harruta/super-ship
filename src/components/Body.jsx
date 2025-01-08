@@ -23,7 +23,7 @@ const Body = () => {
       <img
         src={shipImage}
         alt="Ship Background"
-        className="absolute top-1/3 w-3/4 max-w-[600px] opacity-50"
+        className="absolute top-1/2 w-3/4 max-w-[600px] opacity-50"
       />
 
       {/* Text Content */}
