@@ -15,17 +15,17 @@ app.post("/api/sendWelcomeEmail", async (req, res) => {
     const { email } = req.body;
     
     if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+      return res.status(400).json({ error: "Email is required" });
     }
   
     try {
-      const result = await sendWelcomeEmail(email);  // Ensure the email is sent asynchronously
+      const result = await sendWelcomeEmail(email);
       res.status(200).json(result);
     } catch (error) {
       console.error("Error sending welcome email:", error);
-      res.status(500).json({ message: error.message });
+      res.status(400).json({ error: error.message });
     }
-  });
+});
 
 
 const PORT = 3000;
