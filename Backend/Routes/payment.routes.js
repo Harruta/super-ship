@@ -5,7 +5,7 @@ import cors from "cors";
 
 dotenv.config({ path: ".env" });
 
-const router = express.Router(); // Use a router for modular routes
+const router = express.Router(); 
 
 // Initialize Razorpay instance
 const razorpay = new Razorpay({
@@ -13,21 +13,20 @@ const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// Middleware for CORS and JSON parsing (if not done in main app.js)
 router.use(cors({ origin: "http://127.0.0.1:5173" })); // Allow requests from frontend
 router.use(express.json()); // Parse JSON bodies
 
 // API to create an order
 router.post("/order", async (req, res) => {
     try {
-        const { amount } = req.body; // Amount in dollars
+        const { amount } = req.body; 
 
         if (!amount) {
             return res.status(400).json({ success: false, message: "Amount is required" });
         }
 
         const options = {
-            amount: Math.round(amount * 100), // Convert amount to the smallest currency unit (cents)
+            amount: Math.round(amount * 100), // Convert amount to (cents)
             currency: "USD", // Set the currency
         };
 

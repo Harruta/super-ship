@@ -55,6 +55,10 @@ const PaymentPage = () => {
             } else {
               alert("Payment verification failed.");
             }
+            //as of right now even after the payment it shows that "Payment verification failed"
+            //because in the logic above i have set to show "Payment Successful!" only when the email
+            //has been send but its failing to send the email because razorpay api has protections that 
+            //is stopping me form stealing the users email from the api pop up
           } catch (error) {
             console.error("Error in payment verification:", error);
             alert("Payment verification failed.");
